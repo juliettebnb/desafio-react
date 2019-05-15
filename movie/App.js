@@ -1,13 +1,13 @@
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, FlatList, ActivityIndicator, Image} from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Button, Icon, Left, Body, Right } from 'native-base';
-import { ListItem, Button, Icon, SearchBar, Header, StatusBar} from 'react-native-elements'
+import {Platform, StyleSheet, Text, View, Image, FlatList, ActivityIndicator} from 'react-native';
+import { Container,  Content, Card, CardItem, Thumbnail, Button, Icon, Left, Body, Right } from 'native-base';
+import { ListItem, SearchBar, Header, StatusBar} from 'react-native-elements'
 import { Dimensions } from 'react-native';
-import Carousel from './components/Carousel';
 import { createStackNavigator, createAppContainer,  createDrawerNavigator } from 'react-navigation';
 import  DetailsScreen  from './screens/DetailsScreen';
 import SearchScreen from './screens/SearchScreen';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
@@ -20,14 +20,13 @@ const instructions = Platform.select({
     'Shake or press menu button for dev menu',
 });
 
-
 class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       isLoading: true,
-      dataSource: []
+      dataSource: {}
     };
   }
 
@@ -35,11 +34,11 @@ class HomeScreen extends React.Component {
     return fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=a407c85577c86430ba117c807a1e7e27')
       .then((response) => response.json())
       .then((responseJson) => {
-        console.log('aqui', responseJson)
+        console.log('aquiiiii', responseJson)
 
         this.setState({
           isLoading: false,
-          dataSource: [responseJson],
+          dataSource: responseJson.results,
         })
       })
       .catch((error) => {
@@ -67,7 +66,7 @@ class HomeScreen extends React.Component {
                             justifyContent: 'space-around',
                     }}
         />
-        <View>
+        {/* <View>
           
           <FlatList 
             data={this.state.dataSource}
@@ -76,24 +75,30 @@ class HomeScreen extends React.Component {
             {item.release_date}</Text>} 
             
             />
-        </View>
+        </View> */}
         <View>
           <Text>Trending</Text>
+          <Image source={{uri: 'https://image.tmdb.org/t/p/w200/or06FN3Dka5tukK1e9sl16pB3iy.jpg' }} style={{height: 200, width: 200, flex: 1}} />
           <FlatList 
             horizontal
             data={this.state.dataSource}
             extraData={this.state}
+            ///keyExtractor={(item) => item.id}
+            keyExtractor={(item, index) => index.toString()}
             renderItem={ ({item}) => 
-            <Card>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {movie: item})}>
+            <Card style={{flex: 0}}>
               <CardItem>
                 <Body>
-                  <Image source={{uri: item.poster_path}} />
+                  <Image source={{uri: require('assets/test.jpg')}} />
+                  <Image source={{uri:'https://image.tmdb.org/t/p/w200/or06FN3Dka5tukK1e9sl16pB3iy.jpg' }} style={{height: 200, width: 200, flex: 1}} />
                   <Text>
                     {item.original_title}
                   </Text>
                 </Body>
               </CardItem>
             </Card>
+            </TouchableOpacity>
 
             }
 
