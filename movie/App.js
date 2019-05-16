@@ -11,6 +11,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 
+
 const KEY = 'a407c85577c86430ba117c807a1e7e27'
 
 const instructions = Platform.select({
@@ -26,34 +27,51 @@ class HomeScreen extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      dataSource: {}
+      dataSource1: {},
+      dataSource2: {}
     };
   }
 
   componentDidMount(){
-    return fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=a407c85577c86430ba117c807a1e7e27')
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log('aquiiiii', responseJson)
-
+    Promise.all([fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=a407c85577c86430ba117c807a1e7e27'), 
+    fetch('https://api.themoviedb.org/3/trending/tv/day?api_key=a407c85577c86430ba117c807a1e7e27')])
+      .then(([response1, response2]) => {
+        return Promise.all([response1.json(), response2.json()])
+      })
+      .then(([response1, response2]) => {
+        console.log('response1', response1)
+        console.log('response2', response2)
         this.setState({
           isLoading: false,
-          dataSource: responseJson.results,
+          dataSource1: response1.results,
+          dataSource2: response2.results
         })
-      })
-      .catch((error) => {
-        console.error(error);
+
       });
+
+    // return fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=a407c85577c86430ba117c807a1e7e27')
+    //   .then((response) => response.json())
+    //   .then((responseJson) => {
+    //     console.log('aquiiiii', responseJson)
+
+    //     this.setState({
+    //       isLoading: false,
+    //       dataSource: responseJson.results,
+    //     })
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   }
 
   render() {
     const {navigate} = this.props.navigation;
     return (
-      <View >
+      <View style={{backgroundColor:'#f0f0f0'}}>
         <Header style={styles.header}
           leftComponent={{ icon: 'menu', 
                             color: '#fff',
-                            onPress: () => this.props.navigation.openDrawer(), 
+                            // onPress: () => this.props.navigation.openDrawer(), 
                           }}
           centerComponent={{ text: 'MOVIE',
                              style: { color: '#fff' } }}
@@ -77,24 +95,27 @@ class HomeScreen extends React.Component {
             />
         </View> */}
         <View>
-          <Text>Trending</Text>
-          <Image source={{uri: 'https://image.tmdb.org/t/p/w200/or06FN3Dka5tukK1e9sl16pB3iy.jpg' }} style={{height: 200, width: 200, flex: 1}} />
+          <Text style={{padding:10, fontSize: 22}}>Trending Movies</Text>
           <FlatList 
             horizontal
-            data={this.state.dataSource}
+            data={this.state.dataSource1}
             extraData={this.state}
             ///keyExtractor={(item) => item.id}
             keyExtractor={(item, index) => index.toString()}
             renderItem={ ({item}) => 
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {movie: item})}>
-            <Card style={{flex: 0}}>
-              <CardItem>
+            <Card borderRadius={10} style={{flex: 0 }}>
+              <CardItem  style={{backgroundColor:'#f9f3f3'}}>
                 <Body>
-                  <Image source={{uri: require('assets/test.jpg')}} />
-                  <Image source={{uri:'https://image.tmdb.org/t/p/w200/or06FN3Dka5tukK1e9sl16pB3iy.jpg' }} style={{height: 200, width: 200, flex: 1}} />
-                  <Text>
-                    {item.original_title}
+                   {/* <Image source={require('/Users/juliettebinoche/Desktop/desafio-react/movie/assets/test.jpg')} />  */}
+                  {/* <Image source={{uri:'https://image.tmdb.org/t/p/w200/or06FN3Dka5tukK1e9sl16pB3iy.jpg' }} style={{height: 200, width: 200}} /> */}
+                  <Image source={{uri: 'https://image.tmdb.org/t/p/w200'+ item.poster_path}} style={{height: 300, width: 200, borderRadius:10 }} />
+                  <Text ellipsizeMode='tail' numberOfLines={2}
+                    style={{padding:10, fontSize:15}}>{
+                    `${item.original_title}\n
+                    ${item.vote_average}`}
                   </Text>
+
                 </Body>
               </CardItem>
             </Card>
@@ -104,6 +125,38 @@ class HomeScreen extends React.Component {
 
           />
         </View>
+        <View>
+          <Text style={{padding:10, fontSize: 22}}>Trending Tv Shows</Text>
+          <FlatList 
+            horizontal
+            data={this.state.dataSource2}
+            extraData={this.state}
+            ///keyExtractor={(item) => item.id}
+            keyExtractor={(item, index) => index.toString()}
+            renderItem={ ({item}) => 
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {movie: item})}>
+            <Card borderRadius={10} style={{flex: 0 }}>
+              <CardItem  style={{backgroundColor:'#f9f3f3'}}>
+                <Body>
+                   {/* <Image source={require('/Users/juliettebinoche/Desktop/desafio-react/movie/assets/test.jpg')} />  */}
+                  {/* <Image source={{uri:'https://image.tmdb.org/t/p/w200/or06FN3Dka5tukK1e9sl16pB3iy.jpg' }} style={{height: 200, width: 200}} /> */}
+                  <Image source={{uri: 'https://image.tmdb.org/t/p/w200'+ item.poster_path}} style={{height: 150, width: 100, borderRadius:10 }} />
+                  <Text ellipsizeMode='tail' numberOfLines={2}
+                    style={{padding:10, fontSize:15}}>{
+                    `${item.original_title}\n
+                    ${item.vote_average}`}
+                  </Text>
+
+                </Body>
+              </CardItem>
+            </Card>
+            </TouchableOpacity>
+
+            }
+
+          />
+        </View>
+            
       
 
       </View>
@@ -114,28 +167,25 @@ class HomeScreen extends React.Component {
   }
 }
 
-const MyDrawerNavigator = createDrawerNavigator({
-  Home: {
-    screen: HomeScreen,
-  },
-  Details: {
-    screen: DetailsScreen,
-  },
-});
+// const MyDrawerNavigator = createDrawerNavigator({
+//   Home: {
+//     screen: HomeScreen,
+//   },
+//   Details: {
+//     screen: DetailsScreen,
+//   },
+// });
 
-const MyApp = createAppContainer(MyDrawerNavigator);
+// const MyApp = createAppContainer(MyDrawerNavigator);
 
 const AppNavigator = createAppContainer (
   createStackNavigator({
-  Home: HomeScreen,
-  Search: SearchScreen,
-  Details: DetailsScreen,
-  },
-  {
-    initialRouteName: 'Home',
-    defaultNavigationOptions: {
-      header: null,
-},
+  Home:{ screen: HomeScreen,
+  navigationOptions: () => ({
+    header:null,
+  })},
+  Search: { screen: SearchScreen},
+  Details: { screen: DetailsScreen}
   })
 );
 
