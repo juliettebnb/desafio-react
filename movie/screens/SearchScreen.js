@@ -34,7 +34,7 @@ export default class Search extends Component  {
     componentDidMount(){
       this.search("");
     }
-
+//https://appdividend.com/2018/03/25/react-native-fetch-example-tutorial/
     //https://medium.freecodecamp.org/how-to-build-a-react-native-flatlist-with-realtime-searching-ability-81ad100f6699
     // componentDidMount(){
     //   return fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=a407c85577c86430ba117c807a1e7e27')
