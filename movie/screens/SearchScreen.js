@@ -35,6 +35,7 @@ export default class Search extends Component  {
       this.search("");
     }
 
+    //https://medium.freecodecamp.org/how-to-build-a-react-native-flatlist-with-realtime-searching-ability-81ad100f6699
     // componentDidMount(){
     //   return fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=a407c85577c86430ba117c807a1e7e27')
     //     .then((response) => response.json())
