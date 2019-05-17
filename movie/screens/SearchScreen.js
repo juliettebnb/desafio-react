@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, ActivityIndicator } from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, Button, ActivityIndicator } from 'react-native';
 import { SearchBar, ListItem } from 'react-native-elements';
 import { Dimensions } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
@@ -7,50 +7,32 @@ import { FlatList } from 'react-native-gesture-handler';
 export default class Search extends Component  {
 
     state = {
-        query: "",
+        search: "",
         dataSource: {},
     };
 
-    onChange = e => {
-      const { value } = e.target;
-      this.setState({
-        query: value
-      });
-      this.search(value);
-    }
+    // updateSearch = search => {
+    //   this.setState({ search });
+    //   return fetch(`https://api.themoviedb.org/3/search/movie?api_key=a407c85577c86430ba117c807a1e7e27`,{
+    //     method: "GET",
+    //     params: {
+    //       query: this.state.search,
+    //       page: '1',
 
-    search = query => {
-      const url = `https://api.themoviedb.org/3/search/movie?api_key=a407c85577c86430ba117c807a1e7e27&language=en-US&query=${query}&page=1&include_adult=false`
+    //     }
+    //   })
+    //   .then((response) => response.json())
+    //   .then((responseJson) => {
+    //       console.log('buscaaaaaaaa', responseJson)
+    //       this.setState({ dataSource: responseJson.results });
+        
+    //   });
+    // };
 
 
-      fetch(url)
-        .then((response) => response.json())
-        .then((responseJson) => {
-            this.setState({ dataSource: responseJson.results });
-          
-        });
-    };
 
-    componentDidMount(){
-      this.search("");
-    }
-//https://appdividend.com/2018/03/25/react-native-fetch-example-tutorial/
-    //https://medium.freecodecamp.org/how-to-build-a-react-native-flatlist-with-realtime-searching-ability-81ad100f6699
-    // componentDidMount(){
-    //   return fetch('https://api.themoviedb.org/3/trending/movie/day?api_key=a407c85577c86430ba117c807a1e7e27')
-    //     .then((response) => response.json())
-    //     .then((responseJson) => {
-    //       console.log('aquiiiii', responseJson)
-  
-    //       this.setState({
-    //         isLoading: false,
-    //         dataSource: responseJson.results,
-    //       })
-    //     })
-    //     .catch((error) => {
-    //       console.error(error);
-    //     });
-    // }
+
+
         renderSeparator = () => {
           return (
             <View
@@ -65,20 +47,28 @@ export default class Search extends Component  {
         };
 
     render() {
-      const { query } = this.state;
+      const { search } = this.state;
         return (
           <View>
           
-            <SearchBar
+            {/* <SearchBar
                 style={styles.search}
                 placeholder="Buscar..."
-                onChange={this.onChange.bind(this)}
-                value={this.state.value}
+                onChangeText={this.updateSearch}
+                value={search}
                 containerStyle={{
                   backgroundColor: '#232b2b',
                   justifyContent: 'space-around',
                   }}
-            /> 
+            />  */}
+
+            <TextInput 
+            style={{height: 40, borderColor: 'gray', borderWidth: 1}}
+            onChangeText={this.updateSearch}
+            value={this.state.search}
+            />
+            <Button 
+            />
 
 
             <FlatList

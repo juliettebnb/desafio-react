@@ -95,7 +95,7 @@ class HomeScreen extends React.Component {
             />
         </View> */}
         <View>
-          <Text style={{padding:10, fontSize: 22}}>Trending Movies</Text>
+          <Text style={{padding:10, fontSize: 20}}>Trending Movies</Text>
           <FlatList 
             horizontal
             data={this.state.dataSource1}
@@ -104,7 +104,7 @@ class HomeScreen extends React.Component {
             keyExtractor={(item, index) => index.toString()}
             renderItem={ ({item}) => 
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {movie: item})}>
-            <Card borderRadius={10} style={{flex: 0 }}>
+            <Card borderRadius={10} style={{flex: 0, width: 230 }}>
               <CardItem  style={{backgroundColor:'#f9f3f3'}}>
                 <Body>
                    {/* <Image source={require('/Users/juliettebinoche/Desktop/desafio-react/movie/assets/test.jpg')} />  */}
@@ -112,7 +112,7 @@ class HomeScreen extends React.Component {
                   <Image source={{uri: 'https://image.tmdb.org/t/p/w200'+ item.poster_path}} style={{height: 300, width: 200, borderRadius:10 }} />
                   <Text ellipsizeMode='tail' numberOfLines={2}
                     style={{padding:10, fontSize:15}}>{
-                    `${item.original_title}\n
+                    `${item.original_title}
                     ${item.vote_average}`}
                   </Text>
 
@@ -126,7 +126,7 @@ class HomeScreen extends React.Component {
           />
         </View>
         <View>
-          <Text style={{padding:10, fontSize: 22}}>Trending Tv Shows</Text>
+          <Text style={{padding:10, fontSize: 20}}>Trending Tv Shows</Text>
           <FlatList 
             horizontal
             data={this.state.dataSource2}
@@ -136,14 +136,14 @@ class HomeScreen extends React.Component {
             renderItem={ ({item}) => 
             <TouchableOpacity onPress={() => this.props.navigation.navigate('Details', {movie: item})}>
             <Card borderRadius={10} style={{flex: 0 }}>
-              <CardItem  style={{backgroundColor:'#f9f3f3'}}>
+              <CardItem  style={{backgroundColor:'#f9f3f3', width: 130, height:200}}>
                 <Body>
                    {/* <Image source={require('/Users/juliettebinoche/Desktop/desafio-react/movie/assets/test.jpg')} />  */}
                   {/* <Image source={{uri:'https://image.tmdb.org/t/p/w200/or06FN3Dka5tukK1e9sl16pB3iy.jpg' }} style={{height: 200, width: 200}} /> */}
                   <Image source={{uri: 'https://image.tmdb.org/t/p/w200'+ item.poster_path}} style={{height: 150, width: 100, borderRadius:10 }} />
                   <Text ellipsizeMode='tail' numberOfLines={2}
                     style={{padding:10, fontSize:15}}>{
-                    `${item.original_title}\n
+                    `${item.name}\n
                     ${item.vote_average}`}
                   </Text>
 
