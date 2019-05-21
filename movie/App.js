@@ -84,16 +84,7 @@ class HomeScreen extends React.Component {
                             justifyContent: 'space-around',
                     }}
         />
-        {/* <View>
-          
-          <FlatList 
-            data={this.state.dataSource}
-            extraData={this.state}
-            renderItem={({item}) => <Text>{item.original_title},
-            {item.release_date}</Text>} 
-            
-            />
-        </View> */}
+
         <View>
           <Text style={{padding:10, fontSize: 20}}>Trending Movies</Text>
           <FlatList 
