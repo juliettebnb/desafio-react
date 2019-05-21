@@ -71,7 +71,7 @@ class HomeScreen extends React.Component {
         <Header style={styles.header}
           leftComponent={{ icon: 'menu', 
                             color: '#fff',
-                            // onPress: () => this.props.navigation.openDrawer(), 
+                             onPress: () => {navigation.toggleDrawer}, 
                           }}
           centerComponent={{ text: 'MOVIE',
                              style: { color: '#fff' } }}

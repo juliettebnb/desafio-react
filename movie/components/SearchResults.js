@@ -30,7 +30,7 @@ export default class SearchResults extends Component {
             //   title={`${item.original_title}`}
             //   />
             // )}
-            // ItemSeparatorComponent={this.renderSeparator}
+            //ItemSeparatorComponent={this.renderSeparator}
 
             />
         )
