@@ -1,40 +1,30 @@
-import React, {Component} from 'react';
-import {Text} from 'react-native';
-import { ListItem } from 'react-native-elements';
-import { Dimensions } from 'react-native';
-import { FlatList } from 'react-native-gesture-handler';
+// import React, {Component} from 'react';
+// import { Dimensions } from 'react-native';
+// import { FlatList } from 'react-native-gesture-handler';
+// import {View, TouchableOpacity, Text} from 'react-native';
+// import {connect} from 'react-redux';
 
-export default class SearchResults extends Component {
+// const styles = require('./SearchResultsStyle');
 
-    renderSeparator = () => {
-        return (
-          <View
-            style={{
-              height: 1,
-              width: '86%',
-              backgroundColor: '#CED0CE',
-              marginLeft: '14%',
-            }}
-          />
-        );
-      };
-    render() {
-        return(
-            <FlatList
-            // data={this.state.dataSource2}
-            // extraData={this.state}
-            // keyExtractor={(item, index) => index.toString()}
-            // renderItem={({ item })  =>  (
-            //   <ListItem 
-            //   leftAvatar={{source: {uri:'https://image.tmdb.org/t/p/w200'+ item.poster_path }}}
-            //   title={`${item.original_title}`}
-            //   />
-            // )}
-            //ItemSeparatorComponent={this.renderSeparator}
+// export default class SearchResults extends Component {
 
-            />
-        )
-    }
+//   constructor(props) {
+//     super(props);
+//   }
 
-}
+//   render() {
+//     return(
+//       <View style={styles.searchResultsContainer}>
+//         {this.props.results.map((result, key) => (<Text key={key}>{result.original_title}</Text>))}
+//       </View>
+//     )
+//   }
+// }
 
+// // function mapStateToProps(state) {
+// //   return {
+// //     results: state.results
+// //   };
+// // }
+
+// //export default connect(mapStateToProps, null)(SearchResults);
