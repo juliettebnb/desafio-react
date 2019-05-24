@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Image, FlatList, ActivityIndicator} from 'react-native';
+import {Platform,  ScrollView,StyleSheet, Text, View, Image, FlatList, ActivityIndicator} from 'react-native';
 import { Container,  Content, Card, CardItem, Thumbnail, List, ListItem, Button, Icon, Left, Body, Right, Header, Title } from 'native-base';
 import { Dimensions } from 'react-native';
 import { createStackNavigator, createAppContainer,  createDrawerNavigator } from 'react-navigation';
@@ -57,6 +57,7 @@ class HomeScreen extends React.Component {
     const {navigate} = this.props.navigation;
     return (
       <View style={{backgroundColor:'#f0f0f0'}}>
+        <ScrollView >
 
         <Header>
           <Left>
@@ -145,8 +146,8 @@ class HomeScreen extends React.Component {
             }/> */}
 
          
-      
-
+        </ScrollView>
+          
       </View>
 
 
